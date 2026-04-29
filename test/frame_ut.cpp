@@ -64,6 +64,20 @@ void DumpFrame(const uint8_t (&data)[kLen])
     std::cout << "===========================\n";
 }
 
+void DumpFrame(const uint8_t* raw, std::size_t i)
+{
+    std::cout << "=== Netronix Frame Dump ===\n";
+
+    for (std::size_t j = 0; j < i; ++j) {
+        std::cout << std::hex << std::setw(2) << std::setfill('0')
+            << static_cast<int>(raw[j]) << " ";
+    }
+
+    std::cout << std::endl;
+
+    std::cout << "===========================\n";
+}
+
 template <std::size_t kLen>
 std::size_t BuildResponseFrame(
     uint8_t* out,
@@ -445,4 +459,24 @@ TEST(NetronixFrame, DeserializeRejectTooShortFrame)
             frame,
             sizeof(frame),
             parsed));
+}
+
+TEST(NetronixFrame, SerializeFirmwareRequestFromDocs) {
+    Serdes::Frame frame { 0x01, 0xfe, 0 };
+
+    const uint8_t expected_frame [] = {
+        0x01, 0x05, 0xfe, 0xc6, 0x14
+    };
+
+    uint8_t out_buff[32];
+
+    Serdes::SerializeCommand(out_buff, sizeof(out_buff), frame);
+
+    std::size_t i = 0;
+
+    for (; i < sizeof(expected_frame); ++i) {
+        EXPECT_EQ(expected_frame[i], out_buff[i]);
+    }
+
+    DumpFrame(out_buff, i);
 }

@@ -2,6 +2,9 @@
 
 Lightweight frame serializer/deserializer for embedded systems.
 
+IMPORTANT NOTE: Currently, this api allows to Serialize Command and Deserialize the Response (Netronix).
+IMPORTANT NOTE: Future could bring Serialize Response and Deserialize Command (external contribution welcome!). 
+
 ## Frame format
 
 [ADDR][LEN][CMD][PAYLOAD...][CRC_H][CRC_L]

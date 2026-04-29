@@ -51,7 +51,7 @@ public:
     static constexpr std::size_t kMinResponseLen = kHeaderSize + kOpCodeSize + kCrcSize;
 
 
-    static size_t Serialize(
+    static size_t SerializeCommand(
         uint8_t* out_buffer,
         std::size_t out_buffer_size,
         const Frame& frame) noexcept 
@@ -106,7 +106,7 @@ public:
         return write_index;
     }
 
-    static bool Deserialize(
+    static bool DeserializeResponse(
         const uint8_t* data,
         std::size_t data_len,
         Frame& frame) noexcept

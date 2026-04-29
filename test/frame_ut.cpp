@@ -149,7 +149,7 @@ TEST(NetronixFrame, SerializeFirmwareRequest)
     uint8_t buffer[32] {};
 
     const std::size_t len =
-        Serdes::Serialize(
+        Serdes::SerializeCommand(
             buffer,
             sizeof(buffer),
             frame);
@@ -232,7 +232,7 @@ TEST(NetronixFrame, SerializeFailsOnSmallBuffer)
     uint8_t buffer[2] {};
 
     const std::size_t len =
-        Serdes::Serialize(
+        Serdes::SerializeCommand(
             buffer,
             sizeof(buffer),
             frame);
@@ -252,7 +252,7 @@ TEST(NetronixFrame, SerializeFailsOnTooLargePayload)
     uint8_t buffer[32] {};
 
     const std::size_t len =
-        Netronix::NetronixSerdes<2>::Serialize(
+        Netronix::NetronixSerdes<2>::SerializeCommand(
             buffer,
             sizeof(buffer),
             frame);
@@ -279,7 +279,7 @@ TEST(NetronixFrame, SerializeDummyFrame1) {
         data
     };
 
-    Serdes::Serialize(
+    Serdes::SerializeCommand(
         buffer, 
         sizeof(buffer),
         frame);
@@ -326,7 +326,7 @@ TEST(NetronixFrame, SerializeDummyFrame2) {
         initializer
     };
 
-    Serdes::Serialize(
+    Serdes::SerializeCommand(
         buffer, 
         sizeof(buffer),
         frame);
@@ -373,7 +373,7 @@ TEST(NetronixFrame, DeserializeCorrectFrame)
     Serdes::Frame parsed {};
 
     EXPECT_TRUE(
-        Serdes::Deserialize(
+        Serdes::DeserializeResponse(
             frame,
             len,
             parsed));
@@ -413,7 +413,7 @@ TEST(NetronixFrame, DeserializeRejectInvalidCrc)
     Serdes::Frame parsed {};
 
     EXPECT_FALSE(
-        Serdes::Deserialize(
+        Serdes::DeserializeResponse(
             frame,
             sizeof(frame),
             parsed));
@@ -424,7 +424,7 @@ TEST(NetronixFrame, DeserializeRejectNullptr)
     Serdes::Frame parsed {};
 
     EXPECT_FALSE(
-        Serdes::Deserialize(
+        Serdes::DeserializeResponse(
             nullptr,
             10,
             parsed));
@@ -441,7 +441,7 @@ TEST(NetronixFrame, DeserializeRejectTooShortFrame)
     Serdes::Frame parsed {};
 
     EXPECT_FALSE(
-        Serdes::Deserialize(
+        Serdes::DeserializeResponse(
             frame,
             sizeof(frame),
             parsed));

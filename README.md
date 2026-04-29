@@ -27,3 +27,8 @@ IMPORTANT NOTE: Future could bring Serialize Response and Deserialize Command (e
 - Execute **build_test.sh** script
 - Change working directory to **build**
 - Run **frame_ut**
+
+## References
+
+- Protocol: https://netronix.pl/en/software/netronix-protocol
+- Devices : https://netronix.pl/pl/czytniki-rfid-mw/czytnik-mifare-rfid-netronix-mw-r8b-mw-r8g
